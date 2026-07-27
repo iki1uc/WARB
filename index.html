@@ -1,111 +1,35 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<title>ALBERTUS – 3×3 · 9×9 · ID‑System</title>
-
-<style>
-body { background:#000; color:#0f0; font-family:monospace; padding:40px; }
-.block { background:#111; border:1px solid #333; padding:25px; margin-bottom:30px; border-radius:8px; }
-.title { font-size:22px; color:#6cf; margin-bottom:10px; }
-pre { background:#000; border-left:3px solid #6cf; padding:15px; white-space:pre-wrap; }
-button { background:#222; color:#0f0; padding:10px 20px; border:1px solid #6cf; margin-right:10px; }
-</style>
-
-</head>
-<body>
-
-<h1>ALBERTUS – ID‑System · 3×3 Positionen · 9×9 TMP‑Matrix</h1>
-
 <script>
-// -----------------------------------------
-// REPO-ID (H = TRANS, B = KANAL, T = WARB)
-// -----------------------------------------
-const ID = "H";   // TRANS → H, KANAL → B, WARB → T
-</script>
+// WARB → Tiefe
+const ID = "T";
 
-<div class="block">
-    <div class="title">ID‑System (H/B/T)</div>
-    <pre id="id"></pre>
-</div>
-
-<div class="block">
-    <div class="title">Aktive Position (1–9)</div>
-    <pre id="pos"></pre>
-    <button onclick="nextPos()">Position wechseln</button>
-</div>
-
-<div class="block">
-    <div class="title">TMP‑Routing (9×9)</div>
-    <pre id="tmp"></pre>
-</div>
-
-<script type="module">
-
-// -----------------------------------------
-// ALBERTUS POSITION ENGINE
-// -----------------------------------------
-function ALBERTUS_POSITION_ENGINE(pos = 1, id = "H") {
-
-    const flow = [1,2,3,4,5,6,7,8,9];
-    const next = flow[(flow.indexOf(pos) + 1) % flow.length];
-
+// RESPO_T interpretiert Tiefe
+function RESPO_INTERPRET(tmpPath) {
     return {
-        id,
-        pos,
-        next,
-        tmpPath: `TMP/pos${pos}/`,
-        description: "Albertus 3×3 Position Engine"
+        tmpPath,
+        mode: "RESPO-T",
+        meaning: "Tiefen-Interpretation",
+        info: "RESPO interpretiert TMP-Daten als Tiefenmatrix"
     };
 }
 
-// -----------------------------------------
-// STATE
-// -----------------------------------------
-let currentPos = 1;
-
-// -----------------------------------------
-// RENDER
-// -----------------------------------------
-function render() {
-
-    const engine = ALBERTUS_POSITION_ENGINE(currentPos, ID);
-
-    document.getElementById("id").innerText =
-        JSON.stringify({ ID, meaning: ID === "H" ? "Höhe" : ID === "B" ? "Breite" : "Tiefe" }, null, 2);
-
-    document.getElementById("pos").innerText =
-        JSON.stringify(engine, null, 2);
-
-    document.getElementById("tmp").innerText =
-        `TMP‑Ordner: ${engine.tmpPath}\n` +
-        `Dateien:\n` +
-        `- ${engine.tmpPath}tmp1.json\n` +
-        `- ${engine.tmpPath}tmp2.json\n` +
-        `- ${engine.tmpPath}tmp3.json\n` +
-        `- ${engine.tmpPath}tmp4.json\n` +
-        `- ${engine.tmpPath}tmp5.json\n` +
-        `- ${engine.tmpPath}tmp6.json\n` +
-        `- ${engine.tmpPath}tmp7.json\n` +
-        `- ${engine.tmpPath}tmp8.json\n` +
-        `- ${engine.tmpPath}tmp9.json\n`;
+// BEN_T bewertet Tiefe
+function BEN_EVAL(tmpPath) {
+    return {
+        tmpPath,
+        mode: "BEN-T",
+        score: Math.floor(Math.random() * 100),
+        meaning: "Tiefen-Bewertung",
+        info: "BEN bewertet Tiefenstruktur"
+    };
 }
 
-// -----------------------------------------
-// POSITION WECHSEL
-// -----------------------------------------
-window.nextPos = function() {
-    const engine = ALBERTUS_POSITION_ENGINE(currentPos, ID);
-    currentPos = engine.next;
-    render();
-};
-
-// -----------------------------------------
-// INIT
-// -----------------------------------------
-render();
-
+// AI-T steuert Tiefe
+function AI_STEUER_ALGO(orbit, id) {
+    return {
+        id,
+        orbit,
+        action: "AI-Tiefen-Regelung aktiv",
+        info: "AI steuert Tiefenorbit"
+    };
+}
 </script>
-
-</body>
-</html>
