@@ -1,7 +1,12 @@
-﻿Repo,ID,Bedeutung
-TRANS,H,Höhe
-KANAL,B,Breite
-WARB,T,Tiefe
-Virtuell,VAR1–VAR9,unbekannte Position
-Meta,VARX,universelle Position
-Orbit,VAR∞,unendliche Position
+ID,Depth,Tag
+H551,62,TRANS
+H992,78,TRANS
+B331,81,KANAL
+B882,69,KANAL
+T551,72,WARB
+T992,88,WARB
+VAR4,33,Virtuell
+VAR5,47,Virtuell
+VAR6,59,Virtuell
+VARX2,91,Meta
+VAR∞2,99,Orbit
