@@ -1,35 +1,69 @@
-<script>
-// WARB → Tiefe
-const ID = "T";
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>WARB – Tiefe, Farben, Matrix, CHESS81, INDEX</title>
 
-// RESPO_T interpretiert Tiefe
-function RESPO_INTERPRET(tmpPath) {
-    return {
-        tmpPath,
-        mode: "RESPO-T",
-        meaning: "Tiefen-Interpretation",
-        info: "RESPO interpretiert TMP-Daten als Tiefenmatrix"
-    };
+<style>
+body { background:#000; color:#0f0; font-family:monospace; }
+pre { border:1px solid #0f0; padding:10px; }
+h2 { color:#0f0; }
+</style>
+
+<script type="module">
+
+/* ---------------------------------------------------------
+   IMPORTS – WARB MODULE
+--------------------------------------------------------- */
+
+import { WARB_MASTER } from "./M/warb.master.js";
+import { buildWARBMatrix9 } from "./M/warb.matrix.js";
+
+/* ---------------------------------------------------------
+   IMPORTS – INDEX MODULE
+--------------------------------------------------------- */
+
+import { INDEX_WARB_INTEGRATION } from "./INDEX/core/INDEX.warb.js";
+
+/* ---------------------------------------------------------
+   START
+--------------------------------------------------------- */
+
+async function start(){
+
+    /* 1. WARB Tiefe laden */
+    const warbList = await WARB_MASTER();
+
+    /* 2. WARB 9×9 Matrix erzeugen */
+    const warbMatrix = buildWARBMatrix9(warbList);
+
+    /* 3. RESPO laden (falls vorhanden) */
+    const respoList = window.RESPO_INDEX?.ALL || [];
+
+    /* 4. WARB in INDEX integrieren */
+    const merged = INDEX_WARB_INTEGRATION(respoList, warbList);
+
+    /* 5. Ausgabe */
+    document.getElementById("warbMatrix").innerText =
+        JSON.stringify(warbMatrix, null, 2);
+
+    document.getElementById("warbIndex").innerText =
+        JSON.stringify(merged, null, 2);
 }
 
-// BEN_T bewertet Tiefe
-function BEN_EVAL(tmpPath) {
-    return {
-        tmpPath,
-        mode: "BEN-T",
-        score: Math.floor(Math.random() * 100),
-        meaning: "Tiefen-Bewertung",
-        info: "BEN bewertet Tiefenstruktur"
-    };
-}
+start();
 
-// AI-T steuert Tiefe
-function AI_STEUER_ALGO(orbit, id) {
-    return {
-        id,
-        orbit,
-        action: "AI-Tiefen-Regelung aktiv",
-        info: "AI steuert Tiefenorbit"
-    };
-}
 </script>
+</head>
+<body>
+
+<h1>WARB – Tiefe, Farben, Matrix, CHESS81, INDEX</h1>
+
+<h2>WARB 9×9 Matrix</h2>
+<pre id="warbMatrix"></pre>
+
+<h2>INDEX + WARB Integration</h2>
+<pre id="warbIndex"></pre>
+
+</body>
+</html>
