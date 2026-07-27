@@ -1,37 +1,49 @@
 # WARB – Tiefe (T)
 
-## ID-System
-WARB arbeitet mit der ID **T** (Tiefe).  
+## 1. ID-System
+WARB verwendet die ID **T** (Tiefe).  
 Diese ID ist ein 1‑Zeichen‑Schlüssel und wird als TMP‑Speicherpfad genutzt:
 
 `TMP/T/<slot>.json`
 
-## Albertus Orbit Engine C
-WARB nutzt die Orbit‑Engine C, die automatisch:
+Die ID bestimmt:
+- Tiefen-Interpretation (RESPO_T)
+- Tiefen-Bewertung (BEN_T)
+- Tiefen-Steuerung (AI-T)
 
-- 3×3 Slots (1–9)
-- VAR-Slots (V1–V9)
-- Meta-Slot (X)
-- Orbit-Slot (∞)
+## 2. Albertus Orbit Engine C
+WARB nutzt die Orbit‑Engine C, die automatisch folgende Ebenen durchläuft:
 
-durchläuft und ausweicht, wenn ein Slot besetzt ist.
+- 3×3 Slots: 1–9  
+- VAR-Slots: V1–V9  
+- Meta-Slot: X  
+- Orbit-Slot: ∞  
 
-## Slot-Finder
-WARB verwendet:
+Die Engine weicht automatisch aus, wenn ein Slot besetzt ist.
+
+## 3. Slot-Finder
+WARB nutzt:
 
 `ALBERTUS_FIND_SLOT(T, busy)`
 
-Die Engine wählt automatisch den nächsten freien Slot.
+Die Engine wählt den nächsten freien Slot.
 
-## RESPO_T – Tiefen-Interpretation
-RESPO interpretiert TMP-Daten als Tiefenmatrix.
+## 4. RESPO_T – Tiefen-Interpretation
+RESPO_T interpretiert TMP-Daten als Tiefenmatrix.
 
-## BEN_T – Tiefen-Bewertung
-BEN bewertet die Tiefenstruktur des aktiven TMP-Slots.
+## 5. BEN_T – Tiefen-Bewertung
+BEN_T bewertet die Tiefenstruktur des aktiven TMP-Slots.
 
-## AI-T – Tiefen-Steueralgorithmus
-Der AI-Algorithmus steuert den Tiefenorbit und entscheidet,
+## 6. AI-T – Tiefen-Steueralgorithmus
+Der AI-T Algorithmus steuert den Tiefenorbit und entscheidet,
 wie RESPO/BEN-Daten weiterverwendet werden.
 
-## Zweck
+## 7. Zweck
 WARB bildet die Tiefenachse des Systems.
+
+## 8. Module
+- [Albertus Engine](ca://s?q=Albertus_Engine)
+- [Slot-Finder](ca://s?q=Slot_Finder)
+- [RESPO_T](ca://s?q=RESPO_T)
+- [BEN_T](ca://s?q=BEN_T)
+- [AI-T](ca://s?q=AI_T)
