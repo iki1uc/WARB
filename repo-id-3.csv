@@ -1,4 +1,12 @@
-﻿Repo,ID,Bedeutung
-TRANS,H,Höhe
-KANAL,B,Breite
-WARB,T,Tiefe
+ID,Depth,Tag
+H001,12,TRANS
+H014,18,TRANS
+B101,22,KANAL
+B115,28,KANAL
+T003,31,WARB
+T009,35,WARB
+VAR1,5,Virtuell
+VAR2,9,Virtuell
+VAR3,14,Virtuell
+VARX,44,Meta
+VAR∞,55,Orbit
