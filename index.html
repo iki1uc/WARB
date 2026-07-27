@@ -20,21 +20,20 @@ import { buildWARBMatrix9 } from "./M/warb.matrix.js";
 import { INDEX_WARB_INTEGRATION } from "./INDEX/core/INDEX.warb.js";
 
 // ------------------------------------------------------------
-// WARB – Zusatzmodule (NEU)
+// MINIMAL‑MODULE (Tiefe, Farben, CHESS81)
 // ------------------------------------------------------------
 
-// 1) WARB Tiefe-Analyse
-function WARB_DEPTH_ANALYSIS(warbList) {
+// Tiefe‑Analyse
+function WARB_DEPTH(warbList) {
     return warbList.map(w => ({
         id: w.id,
         depth: w.depth || 0,
-        color: w.color || "none",
-        score: (w.depth || 0) * 7
+        color: w.color || "none"
     }));
 }
 
-// 2) WARB ColorMap
-function WARB_COLOR_MAP(warbList) {
+// ColorMap
+function WARB_COLORS(warbList) {
     const map = {};
     for (const w of warbList) {
         if (!map[w.color]) map[w.color] = [];
@@ -43,15 +42,9 @@ function WARB_COLOR_MAP(warbList) {
     return map;
 }
 
-// 3) WARB CHESS81 (9×9)
-function WARB_CHESS81(warbMatrix) {
-    const flat = [];
-    for (const row of warbMatrix) {
-        for (const cell of row) {
-            flat.push(cell);
-        }
-    }
-    return flat;
+// CHESS81 (Flattened 9×9)
+function WARB_CHESS81(matrix9) {
+    return matrix9.flat();
 }
 
 // ------------------------------------------------------------
@@ -71,11 +64,11 @@ async function start(){
     // INDEX + WARB Fusion
     const merged = INDEX_WARB_INTEGRATION(respoList, warbList);
 
-    // Tiefe-Analyse
-    const warbDepth = WARB_DEPTH_ANALYSIS(warbList);
+    // Tiefe
+    const warbDepth = WARB_DEPTH(warbList);
 
-    // ColorMap
-    const warbColors = WARB_COLOR_MAP(warbList);
+    // Farben
+    const warbColors = WARB_COLORS(warbList);
 
     // CHESS81
     const warbChess = WARB_CHESS81(warbMatrix);
