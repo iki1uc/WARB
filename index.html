@@ -12,24 +12,91 @@ h2 { color:#0f0; }
 
 <script type="module">
 
+// ------------------------------------------------------------
+// IMPORTS
+// ------------------------------------------------------------
 import { WARB_MASTER } from "./M/warb.master.js";
 import { buildWARBMatrix9 } from "./M/warb.matrix.js";
 import { INDEX_WARB_INTEGRATION } from "./INDEX/core/INDEX.warb.js";
 
+// ------------------------------------------------------------
+// WARB – Zusatzmodule (NEU)
+// ------------------------------------------------------------
+
+// 1) WARB Tiefe-Analyse
+function WARB_DEPTH_ANALYSIS(warbList) {
+    return warbList.map(w => ({
+        id: w.id,
+        depth: w.depth || 0,
+        color: w.color || "none",
+        score: (w.depth || 0) * 7
+    }));
+}
+
+// 2) WARB ColorMap
+function WARB_COLOR_MAP(warbList) {
+    const map = {};
+    for (const w of warbList) {
+        if (!map[w.color]) map[w.color] = [];
+        map[w.color].push(w.id);
+    }
+    return map;
+}
+
+// 3) WARB CHESS81 (9×9)
+function WARB_CHESS81(warbMatrix) {
+    const flat = [];
+    for (const row of warbMatrix) {
+        for (const cell of row) {
+            flat.push(cell);
+        }
+    }
+    return flat;
+}
+
+// ------------------------------------------------------------
+// START
+// ------------------------------------------------------------
 async function start(){
 
+    // WARB Basisdaten
     const warbList = await WARB_MASTER();
+
+    // WARB 9×9 Matrix
     const warbMatrix = buildWARBMatrix9(warbList);
 
+    // INDEX-Daten
     const respoList = window.RESPO_INDEX?.ALL || [];
 
+    // INDEX + WARB Fusion
     const merged = INDEX_WARB_INTEGRATION(respoList, warbList);
 
+    // Tiefe-Analyse
+    const warbDepth = WARB_DEPTH_ANALYSIS(warbList);
+
+    // ColorMap
+    const warbColors = WARB_COLOR_MAP(warbList);
+
+    // CHESS81
+    const warbChess = WARB_CHESS81(warbMatrix);
+
+    // ------------------------------------------------------------
+    // AUSGABE
+    // ------------------------------------------------------------
     document.getElementById("warbMatrix").innerText =
         JSON.stringify(warbMatrix, null, 2);
 
     document.getElementById("warbIndex").innerText =
         JSON.stringify(merged, null, 2);
+
+    document.getElementById("warbDepth").innerText =
+        JSON.stringify(warbDepth, null, 2);
+
+    document.getElementById("warbColors").innerText =
+        JSON.stringify(warbColors, null, 2);
+
+    document.getElementById("warbChess").innerText =
+        JSON.stringify(warbChess, null, 2);
 }
 
 start();
@@ -45,6 +112,15 @@ start();
 
 <h2>INDEX + WARB Integration</h2>
 <pre id="warbIndex"></pre>
+
+<h2>WARB Tiefe-Analyse</h2>
+<pre id="warbDepth"></pre>
+
+<h2>WARB ColorMap</h2>
+<pre id="warbColors"></pre>
+
+<h2>WARB CHESS81 (Flattened 9×9)</h2>
+<pre id="warbChess"></pre>
 
 </body>
 </html>
