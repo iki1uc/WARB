@@ -1,10 +1,10 @@
-﻿Datei,Neuer Name,Ort,Zweck
-repo-id-3.js,repo-id-3.csv,/WARB/,Tiefe‑Daten
-repo-id-6.js,repo-id-6.csv,/WARB/,Tiefe‑Daten
-warb.depth.js,bleibt,/WARB/M/,Farben + Tiefe
-warb.id.js,bleibt,/WARB/M/,CSV‑Parser
-WARB.load.js,bleibt,/WARB/M/,CSV‑Loader
-warb.master.js,bleibt,/WARB/M/,Tiefe‑System
-NEU warb.matrix.js,neu,/WARB/M/,9×9 Matrix
-NEU warb.chess.js,neu,/WARB/M/,CHESS81‑Mapping
-NEU INDEX.warb.js,neu,/INDEX/core/,INDEX‑Integration
+ID,Depth,Tag
+X001,11,TRANS
+X002,22,KANAL
+X003,33,WARB
+X004,44,Virtuell
+X005,55,Meta
+X006,66,Orbit
+X007,77,WARB
+X008,88,KANAL
+X009,99,TRANS
