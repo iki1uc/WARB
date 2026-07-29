@@ -1,12 +1,27 @@
-function ALBERTUS_FIND_SLOT(id, busy) {
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ID · WARB</title>
+<style>
+body{background:#000;color:#0f0;font-family:monospace;padding:40px;}
+pre{background:#111;border-left:3px solid #6cf;padding:12px;}
+</style>
+</head>
+<body>
 
-    const base = ["1","2","3","4","5","6","7","8","9"];
-    const varSlots = ["V1","V2","V3","V4","V5","V6","V7","V8","V9"];
-    const meta = ["X"];
-    const orbit = ["∞"];
+<h1>ID · WARB</h1>
 
-    for (const p of base) if (!busy[p]) return p;
-    for (const p of varSlots) if (!busy[p]) return p;
-    if (!busy["X"]) return "X";
-    return "∞";
-}
+<pre>
+ID.CORE     = WARB
+ID.ROLE     = Tiefe (T) · Analyseachse
+ID.STATE    = stabil
+ID.READY    = 100%
+ID.SYS      = sys.in.json
+ID.NC       = active
+ID.ROM      = false
+ID.LOCATION = /WARB/
+</pre>
+
+</body>
+</html>
