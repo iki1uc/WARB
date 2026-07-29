@@ -2,118 +2,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>WARB – Tiefe, Farben, Matrix, CHESS81, INDEX</title>
-
+<title>WARB · Viewer</title>
 <style>
-body { background:#000; color:#0f0; font-family:monospace; }
-pre { border:1px solid #0f0; padding:10px; }
-h2 { color:#0f0; }
+body{background:#000;color:#0f0;font-family:monospace;padding:40px;}
+pre{background:#111;border-left:3px solid #6cf;padding:12px;}
+button{background:#111;color:#0f0;border:1px solid #333;padding:8px 16px;}
 </style>
-
-<script type="module">
-
-// ------------------------------------------------------------
-// IMPORTS
-// ------------------------------------------------------------
-import { WARB_MASTER } from "./M/warb.master.js";
-import { buildWARBMatrix9 } from "./M/warb.matrix.js";
-import { INDEX_WARB_INTEGRATION } from "./INDEX/core/INDEX.warb.js";
-
-// ------------------------------------------------------------
-// MINIMAL‑MODULE (Tiefe, Farben, CHESS81)
-// ------------------------------------------------------------
-
-// Tiefe‑Analyse
-function WARB_DEPTH(warbList) {
-    return warbList.map(w => ({
-        id: w.id,
-        depth: w.depth || 0,
-        color: w.color || "none"
-    }));
-}
-
-// ColorMap
-function WARB_COLORS(warbList) {
-    const map = {};
-    for (const w of warbList) {
-        if (!map[w.color]) map[w.color] = [];
-        map[w.color].push(w.id);
-    }
-    return map;
-}
-
-// CHESS81 (Flattened 9×9)
-function WARB_CHESS81(matrix9) {
-    return matrix9.flat();
-}
-
-// ------------------------------------------------------------
-// START
-// ------------------------------------------------------------
-async function start(){
-
-    // WARB Basisdaten
-    const warbList = await WARB_MASTER();
-
-    // WARB 9×9 Matrix
-    const warbMatrix = buildWARBMatrix9(warbList);
-
-    // INDEX-Daten
-    const respoList = window.RESPO_INDEX?.ALL || [];
-
-    // INDEX + WARB Fusion
-    const merged = INDEX_WARB_INTEGRATION(respoList, warbList);
-
-    // Tiefe
-    const warbDepth = WARB_DEPTH(warbList);
-
-    // Farben
-    const warbColors = WARB_COLORS(warbList);
-
-    // CHESS81
-    const warbChess = WARB_CHESS81(warbMatrix);
-
-    // ------------------------------------------------------------
-    // AUSGABE
-    // ------------------------------------------------------------
-    document.getElementById("warbMatrix").innerText =
-        JSON.stringify(warbMatrix, null, 2);
-
-    document.getElementById("warbIndex").innerText =
-        JSON.stringify(merged, null, 2);
-
-    document.getElementById("warbDepth").innerText =
-        JSON.stringify(warbDepth, null, 2);
-
-    document.getElementById("warbColors").innerText =
-        JSON.stringify(warbColors, null, 2);
-
-    document.getElementById("warbChess").innerText =
-        JSON.stringify(warbChess, null, 2);
-}
-
-start();
-
-</script>
 </head>
 <body>
 
-<h1>WARB – Tiefe, Farben, Matrix, CHESS81, INDEX</h1>
+<h1>WARB · Viewer</h1>
 
-<h2>WARB 9×9 Matrix</h2>
-<pre id="warbMatrix"></pre>
+<button onclick="run()">LOAD SYS</button>
+<pre id="out">Bereit…</pre>
 
-<h2>INDEX + WARB Integration</h2>
-<pre id="warbIndex"></pre>
+<script type="module">
+import sysIn from "./sys.in.json" assert {type:"json"};
+import sysOut from "./sys.out.json" assert {type:"json"};
+import sysScale from "./sys.scale.json" assert {type:"json"};
+import sysHdf from "./sys.hdf.json" assert {type:"json"};
 
-<h2>WARB Tiefe-Analyse</h2>
-<pre id="warbDepth"></pre>
-
-<h2>WARB ColorMap</h2>
-<pre id="warbColors"></pre>
-
-<h2>WARB CHESS81 (Flattened 9×9)</h2>
-<pre id="warbChess"></pre>
+function run(){
+    const data = {sysIn, sysOut, sysScale, sysHdf};
+    out.textContent = JSON.stringify(data, null, 2);
+}
+</script>
 
 </body>
 </html>
