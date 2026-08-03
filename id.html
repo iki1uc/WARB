@@ -1,41 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ID · WARB</title>
-<style>
-body{background:#000;color:#0f0;font-family:monospace;padding:40px;}
-pre{background:#111;border-left:3px solid #6cf;padding:12px;}
-</style>
-</head>
-<body>
-
-<h1>ID · WARB</h1>
-
-<pre>
 ID.CORE     = WARB
-ID.ROLE     = Tiefe (T) · Farben · Matrix · CHESS81 · INDEX-Fusion
+ID.ROLE     = Tiefe (T) · Tiefenrotation
+ID.TYPE     = GEO-Station 5/9
 ID.STATE    = stabil
 ID.READY    = 100%
-ID.SYS      = sys.in.json
-ID.NC       = active
-ID.ROM      = false
 ID.LOCATION = /WARB/
 
-MODULES:
- - warb.master.js
- - warb.matrix.js
- - INDEX.warb.js
- - warb.chess.js
+GEO.SEGMENT = 81 → ◆ → △ → 27
+FRAME.3     = 81 → ◆ → △
+FRAME.9     = Station 5
+FRAME.81    = Zeile 5 der 9×9-Matrix
+
+KOMPATIBEL:
+ - PER
+ - KANAL
+ - TMP-γ
+
+INKOMPATIBEL:
+ - HY
+ - PE
+ - TRANS
+ - TMP-α
+ - TMP-β
+
+SYSTEM:
+ - sys.in.json
+ - sys.out.json
+ - sys.scale.json
+ - sys.hdf.json
+
+CSV:
+ - repo-id-3.csv
+ - repo-id-6.csv
+ - station-buchstabe-10.csv
+ - neue-station-buchstabe-3.csv
+ - geo-form-kompatibel-mit-3.csv
+ - datei-neuer-name-9.csv
 
 CAPABILITIES:
  - Tiefe (T)
- - ColorMap
- - 9×9 Matrix
- - CHESS81 Flatten
- - INDEX Fusion
- - RESPO.next Integration
-</pre>
-
-</body>
-</html>
+ - Tiefenmatrix
+ - GEO-Prüfung (◆)
+ - Tiefenfunktion (△)
+ - Verbindung zu PER/KANAL/TMP-γ
